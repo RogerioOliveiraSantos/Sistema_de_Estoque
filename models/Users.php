@@ -1,6 +1,9 @@
 <?php  
 	class Users extends Model {
 
+		private $info;
+
+
 		public function verifyUser($number, $pass) {
 
 			$sql = "SELECT * FROM users WHERE user_number = :unumber AND user_pass = :upass";
@@ -16,7 +19,7 @@
 			}	
 		}
 
-		public function createToken($unumber) {
+		public function createToken($unumber) {	
 			$token = md5(time().rand(0,999).time().rand(0,999));
 
 			$sql = "UPDATE users SET user_token = :token WHERE user_number = :unumber";
@@ -27,4 +30,47 @@
 
 			return $token;
 		}
+
+		public function checkLogin() {
+			if (!empty($_SESSION['token'])) {
+				$token = $_SESSION['token'];
+
+				$sql = "SELECT * FROM users WHERE user_token = :token";
+				$sql = $this->db->prepare($sql);
+				$sql->bindValue(":token", $token);
+				$sql->execute();
+
+				if ($sql->rowCount() > 0) {
+					$this->info = $sql->fetch();
+					return true;
+				}
+			}
+			return false;
+		}
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
