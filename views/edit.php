@@ -1,6 +1,6 @@
 <h1>Editar Produto</h1>
 
-<a href="<?php echo BASE_URL; ?>">Voltar</a><br><br>
+<a href="<?php echo BASE_URL; ?>">Voltar</a><br><br> 
 
 <form method="POST">
 	Código de Barras:<br>

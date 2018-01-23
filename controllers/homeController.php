@@ -15,7 +15,13 @@ class homeController extends Controller {
         $data = array();
         $p = new Products();
 
-        $data['list'] = $p->getProducts();
+        $search = '';
+
+        if (!empty($_GET['busca'])) {
+        	$search = $_GET['busca'];	
+        }
+
+        $data['list'] = $p->getProducts($search);
 
         $this->loadTemplate('home', $data);
     }
